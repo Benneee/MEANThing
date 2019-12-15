@@ -9,6 +9,8 @@ import Issue from './models/issue';
 const app = express();
 const router = express.Router();
 
+const port = process.env.PORT || 4000;
+
 // Use CORS middleware to avoid connection issues since our Database will be hosted on another server
 app.use(cors());
 
@@ -37,6 +39,8 @@ connection.once('open', () => {
 });
 
 // Defining the Endpoints
+
+app.get('/', (req, res) => res.send('Welcome to the Issues Tracker API Page!'));
 
 // Endpoint to get all the issues
 router.route('/issues').get((req, res) => {
