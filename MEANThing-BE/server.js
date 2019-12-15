@@ -16,10 +16,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connecting to the MongoDB Database
+
+const mongodb =
+  'mongodb+srv://benedict:rocket18@cluster0-8azdb.mongodb.net/issues?retryWrites=true&w=majority';
+
 mongoose
-  .connect('')
-  .then(res => {
-    console.log(res);
+  .connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
   })
   .catch(err => {
     console.log(err);
@@ -103,6 +107,8 @@ router.route('/issues/delete/:id').get((req, res) => {
     }
   });
 });
+app.use(express.urlencoded({ extended: false }));
+
 app.use('/', router);
 
 app.listen(4000, () => console.log('Server running on port 4000'));

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 let Issue = new Schema({
   title: {
