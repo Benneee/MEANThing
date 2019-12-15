@@ -7,7 +7,19 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ListComponent } from "./components/list/list.component";
 import { CreateComponent } from "./components/create/create.component";
 import { EditComponent } from "./components/edit/edit.component";
-import { MatToolbarModule } from "@angular/material";
+import {
+  MatToolbarModule,
+  MatFormField,
+  MatInputModule,
+  MatOptionModule,
+  MatSelectModule,
+  MatIconModule,
+  MatButtonModule,
+  MatCardModule,
+  MatTableModule,
+  MatDividerModule,
+  MatSnackBarModule
+} from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
 // import { IssuesService } from './issues.service';
 
@@ -18,7 +30,17 @@ import { HttpClientModule } from "@angular/common/http";
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormField,
+    MatInputModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTableModule,
+    MatDividerModule,
+    MatSnackBarModule
   ],
   // providers: [IssuesService],
   bootstrap: [AppComponent]
