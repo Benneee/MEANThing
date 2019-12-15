@@ -74,21 +74,20 @@ router.route('/issues/add').post((req, res) => {
 });
 
 // Endpoint to update an issue
-router.route('issues/update/:id').post((req, res, next) => {
+router.route('/issues/update/:id').put((req, res) => {
   Issue.findById(req.params.id, (err, issue) => {
-    if (!issue) {
-      return next(new Error('Could not find issue'));
-    } else {
+    if (!issue) return next(new Error('Could not load document'));
+    else {
       issue.title = req.body.title;
       issue.responsible = req.body.responsible;
-      issue.description = req.body.descripion;
+      issue.description = req.body.description;
       issue.severity = req.body.severity;
       issue.status = req.body.status;
 
       issue
         .save()
         .then(issue => {
-          res.json('Update successful');
+          res.json('Update done');
         })
         .catch(err => {
           res.status(400).send('Update failed');
@@ -98,7 +97,7 @@ router.route('issues/update/:id').post((req, res, next) => {
 });
 
 // Endpoint to delete an issue
-router.route('/issues/delete/:id').get((req, res) => {
+router.route('/issues/delete/:id').delete((req, res) => {
   Issue.findByIdAndRemove({ _id: req.params.id }, (err, issue) => {
     if (err) {
       res.json(err);
