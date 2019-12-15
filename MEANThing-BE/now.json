@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@now/node-server"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/issues",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/issues/(?<id>[^/]+)",
+      "dest": "/server.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/issues/add",
+      "dest": "/server.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/issues/update/(?<id>[^/]+)",
+      "dest": "/server.js",
+      "methods": ["PUT"]
+    },
+    {
+      "src": "/issues/delete/(?<id>[^/]+)",
+      "dest": "/server.js",
+      "methods": ["DELETE"]
+    }
+  ]
+}
