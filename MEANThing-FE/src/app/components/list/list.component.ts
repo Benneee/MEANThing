@@ -21,11 +21,28 @@ export class ListComponent implements OnInit {
 
   getAllIssues() {
     this.issuesService.getIssues().subscribe(
-      (res: any) => {
-        console.log("res: ", res);
+      (data: Issue[]) => {
+        this.issues = data;
+        console.log(this.issues);
       },
       (error: any) => {
         console.log("err: ", error);
+      }
+    );
+  }
+
+  editIssue(id: string) {
+    this.router.navigate([`/edit/${id}`]);
+  }
+
+  deleteIssue(id: string) {
+    this.issuesService.deleteIssue(id).subscribe(
+      (res: any) => {
+        console.log("res: ", res);
+        // this.getAllIssues();
+      },
+      (error: any) => {
+        console.log("error: ", error);
       }
     );
   }

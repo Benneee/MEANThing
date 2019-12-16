@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { IssuesService } from "src/app/issues.service";
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: "app-edit",
@@ -7,7 +8,9 @@ import { IssuesService } from "src/app/issues.service";
   styleUrls: ["./edit.component.css"]
 })
 export class EditComponent implements OnInit {
-  constructor(private issuesService: IssuesService) {}
+  constructor(private issuesService: IssuesService, private router: Router, private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // this.route.queryParamMap.subscribe()
+  }
 }
