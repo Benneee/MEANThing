@@ -9,7 +9,6 @@ import { CreateComponent } from "./components/create/create.component";
 import { EditComponent } from "./components/edit/edit.component";
 import {
   MatToolbarModule,
-  MatFormField,
   MatInputModule,
   MatOptionModule,
   MatSelectModule,
@@ -18,7 +17,8 @@ import {
   MatCardModule,
   MatTableModule,
   MatDividerModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatFormFieldModule
 } from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
 // import { IssuesService } from './issues.service';
@@ -31,7 +31,7 @@ import { HttpClientModule } from "@angular/common/http";
     BrowserAnimationsModule,
     MatToolbarModule,
     HttpClientModule,
-    MatFormField,
+    MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
     MatSelectModule,
