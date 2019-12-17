@@ -17,6 +17,10 @@ app.use(cors());
 // Call the json method of the body-parser middleware to convert data to JSON
 app.use(bodyParser.json());
 
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/', router);
+
 // Connecting to the MongoDB Database
 
 const mongodb =
@@ -110,8 +114,5 @@ router.route('/issues/delete/:id').delete((req, res) => {
     }
   });
 });
-app.use(express.urlencoded({ extended: false }));
-
-app.use('/', router);
 
 app.listen(4000, () => console.log('Server running on port 4000'));
