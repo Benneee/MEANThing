@@ -32,10 +32,12 @@ export class ListComponent implements OnInit {
   }
 
   editIssue(id: string) {
+    console.log('item: ', id);
     this.router.navigate([`/edit/${id}`]);
   }
 
   deleteIssue(id: string) {
+    console.log('item: ', id);
     this.issuesService.deleteIssue(id).subscribe(
       (res: any) => {
         console.log("res: ", res);
