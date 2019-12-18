@@ -21,6 +21,7 @@ import {
   MatFormFieldModule
 } from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
+import { ReactiveFormsModule } from "@angular/forms";
 // import { IssuesService } from './issues.service';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { HttpClientModule } from "@angular/common/http";
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     HttpClientModule,
     MatFormFieldModule,
