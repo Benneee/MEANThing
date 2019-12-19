@@ -36,7 +36,7 @@
       <br><br>
 
       <button mat-raised-button color="accent" style="margin-right: 10px;" routerLink="/list">Back</button>
-      <button mat-raised-button color="primary" [disabled]="createIssueForm.pristine || createIssueForm.invalid || isLoading" type="submit">Save</button>
+      <button mat-raised-button color="primary" [disabled]="createIssueForm.pristine || createIssueForm.invalid || isLoading" type="submit"> {{ formBtn.text }} </button>
     </form>
   </mat-card>
 </div>
