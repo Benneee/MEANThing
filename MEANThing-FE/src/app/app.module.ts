@@ -6,7 +6,6 @@ import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ListComponent } from "./components/list/list.component";
 import { CreateComponent } from "./components/create/create.component";
-import { EditComponent } from "./components/edit/edit.component";
 import {
   MatToolbarModule,
   MatInputModule,
@@ -22,10 +21,9 @@ import {
 } from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
-// import { IssuesService } from './issues.service';
 
 @NgModule({
-  declarations: [AppComponent, ListComponent, CreateComponent, EditComponent],
+  declarations: [AppComponent, ListComponent, CreateComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -44,7 +42,6 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatDividerModule,
     MatSnackBarModule
   ],
-  // providers: [IssuesService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

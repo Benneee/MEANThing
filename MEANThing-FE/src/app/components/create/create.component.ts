@@ -6,7 +6,7 @@ import {
   Validators,
   FormControl
 } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router, Params } from "@angular/router";
 
 @Component({
   selector: "app-create",
@@ -16,15 +16,26 @@ import { Router } from "@angular/router";
 export class CreateComponent implements OnInit {
   createIssueForm: FormGroup;
   isLoading = false;
+  issueID: string;
+  editState = false;
+  formBtn = {
+    type: "create",
+    text: "Save"
+  };
 
   constructor(
     private issuesService: IssuesService,
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit() {
     this.createIssue();
+    this.getIssueID();
+    if (this.issueID) {
+      this.getIssueDetails();
+    }
   }
 
   createIssue() {
@@ -68,5 +79,42 @@ export class CreateComponent implements OnInit {
           console.log("err: ", error);
         }
       );
+  }
+
+  getIssueDetails() {
+    this.isLoading = true;
+    this.issuesService.getSingleIssue(this.issueID).subscribe(
+      (res: any) => {
+        if (res) {
+          console.log("res: ", res);
+          // Load form with the data from the issue
+          this.formBtn = {
+            type: "update",
+            text: "Update"
+          };
+          this.createIssueForm.patchValue({
+            title: res.title,
+            responsible: res.responsible,
+            description: res.description,
+            severity: res.severity
+          });
+        }
+      },
+      (error: any) => {
+        console.log("err: ", error);
+      }
+    );
+  }
+
+  getIssueID() {
+    this.route.params.subscribe((params: Params) => {
+      if (!params["id"]) {
+        this.router.navigate(["/list"]);
+        return;
+      } else {
+        this.editState = true;
+        this.issueID = params["id"];
+      }
+    });
   }
 }
