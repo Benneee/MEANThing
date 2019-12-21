@@ -1,27 +1,45 @@
 <div>
-  <br>
+  <br />
 
   <mat-card>
-    <header class="mat-typography"> 
-      <h3>Create a new issue</h3>
+    <header class="mat-typography">
+      <h3>{{ formHeadline }}</h3>
     </header>
     <mat-divider></mat-divider>
 
-    <br>
+    <br />
 
-    <form [formGroup]="createIssueForm" class="create-form" (ngSubmit)="submit()">
-
+    <form
+      [formGroup]="createIssueForm"
+      class="create-form"
+      (ngSubmit)="submit()"
+    >
       <mat-form-field class="field-full-width">
-        <input type="text" matInput placeholder="Issue Title" formControlName="title">
+        <input
+          type="text"
+          matInput
+          placeholder="Issue Title"
+          formControlName="title"
+        />
       </mat-form-field>
 
-       <mat-form-field class="field-full-width">
-        <input type="text" matInput placeholder="Responsible" formControlName="responsible">
+      <mat-form-field class="field-full-width">
+        <input
+          type="text"
+          matInput
+          placeholder="Responsible"
+          formControlName="responsible"
+        />
       </mat-form-field>
 
       <mat-form-field class="field-full-width">
-        <textarea type="text" matInput placeholder="Description" formControlName="description">
-          </textarea>
+        <textarea
+          type="text"
+          matInput
+          placeholder="Description"
+          formControlName="description"
+        >
+        </textarea>
       </mat-form-field>
 
       <mat-form-field>
@@ -33,10 +51,19 @@
       </mat-form-field>
 
       <mat-divider></mat-divider>
-      <br><br>
+      <br /><br />
 
-      <button mat-raised-button color="accent" style="margin-right: 10px;" routerLink="/list">Back</button>
-      <button mat-raised-button color="primary" [disabled]="createIssueForm.pristine || createIssueForm.invalid || isLoading" type="submit"> {{ formBtn.text }} </button>
+      <button
+        mat-raised-button
+        color="accent"
+        style="margin-right: 10px;"
+        routerLink="/list"
+      >
+        Back
+      </button>
+      <button mat-raised-button color="primary" type="submit">
+        {{ formBtn.text }}
+      </button>
     </form>
   </mat-card>
 </div>

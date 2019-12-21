@@ -41,7 +41,7 @@ export class ListComponent implements OnInit {
     this.issuesService.deleteIssue(id).subscribe(
       (res: any) => {
         console.log("res: ", res);
-        // this.getAllIssues();
+        this.getAllIssues();
       },
       (error: any) => {
         console.log("error: ", error);

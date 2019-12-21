@@ -1,3 +1,4 @@
+import { Issue } from "./../../issue.model";
 import { IssuesService } from "./../../issues.service";
 import { Component, OnInit } from "@angular/core";
 import {
@@ -17,11 +18,15 @@ export class CreateComponent implements OnInit {
   createIssueForm: FormGroup;
   isLoading = false;
   issueID: string;
-  editState = false;
+  formHeadline = "Create a new issue";
   formBtn = {
     type: "create",
     text: "Save"
   };
+  formUpdateProps: any;
+  editState = false;
+  id: string;
+  status: string;
 
   constructor(
     private issuesService: IssuesService,
@@ -56,7 +61,14 @@ export class CreateComponent implements OnInit {
       severity,
       title
     } = this.createIssueForm.value;
-    this.addIssue(description, responsible, severity, title);
+    if (this.formBtn.type === "create") {
+      console.log("Creating new issue...");
+      this.addIssue(description, responsible, severity, title);
+    } else {
+      console.log("Updating issue...");
+      const { _id, status } = this.formUpdateProps;
+      this.updateIssue(_id, title, responsible, description, severity, status);
+    }
   }
 
   addIssue(
@@ -81,25 +93,38 @@ export class CreateComponent implements OnInit {
       );
   }
 
+  updateIssue(
+    id: any,
+    title: string,
+    responsible: string,
+    description: string,
+    severity: string,
+    status: string
+  ) {
+    this.isLoading = true;
+    this.issuesService
+      .updateIssue(id, title, responsible, description, severity, status)
+      .subscribe(
+        (res: any) => {
+          console.log("res: ", res);
+        },
+        (error: any) => {
+          console.log("err: ", error);
+        }
+      );
+  }
+
   getIssueDetails() {
     this.isLoading = true;
     this.issuesService.getSingleIssue(this.issueID).subscribe(
       (res: any) => {
         if (res) {
           console.log("res: ", res);
+          const { _id, status } = res;
+          this.formUpdateProps = { _id, status };
           // Load form with the data from the issue
-          if (this.editState === true) {
-            this.formBtn = {
-              type: "update",
-              text: "Update"
-            };
-            this.createIssueForm.patchValue({
-              title: res.title,
-              responsible: res.responsible,
-              description: res.description,
-              severity: res.severity
-            });
-          }
+          // this.editState = true;
+          this.populateForm(res);
         }
       },
       (error: any) => {
@@ -108,12 +133,45 @@ export class CreateComponent implements OnInit {
     );
   }
 
+  populateForm(issueData: any) {
+    let title = "";
+    let responsible = "";
+    let description = "";
+    let severity = "";
+
+    if (issueData) {
+      this.formHeadline = "Update Issue";
+      this.formBtn = {
+        type: "update",
+        text: "Update"
+      };
+
+      title = issueData.title;
+      description = issueData.description;
+      responsible = issueData.responsible;
+      severity = issueData.severity;
+
+      this.createIssueForm = this.fb.group({
+        title,
+        description,
+        responsible,
+        severity
+      });
+    } else {
+      this.createIssueForm = this.fb.group({
+        title: [title, Validators.required],
+        description,
+        responsible,
+        severity
+      });
+    }
+  }
+
   getIssueID() {
     this.route.params.subscribe((params: Params) => {
       if (!params["id"]) {
-        this.editState = false;
-      } else {
         this.editState = true;
+      } else {
         this.issueID = params["id"];
       }
     });
