@@ -8,6 +8,7 @@ import {
   FormControl
 } from "@angular/forms";
 import { ActivatedRoute, Router, Params } from "@angular/router";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-create",
@@ -32,7 +33,8 @@ export class CreateComponent implements OnInit {
     private issuesService: IssuesService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -45,7 +47,7 @@ export class CreateComponent implements OnInit {
 
   createIssue() {
     this.createIssueForm = this.fb.group({
-      title: ["", Validators.required],
+      title: "",
       description: "",
       responsible: "",
       severity: ""
@@ -83,12 +85,15 @@ export class CreateComponent implements OnInit {
       .subscribe(
         (res: any) => {
           if (res) {
-            console.log("res: ", res);
+            // console.log("res: ", res);
+            this.notify(res.issue, "New Issue");
             this.router.navigate(["/list"]);
           }
         },
         (error: any) => {
-          console.log("err: ", error);
+          // console.log("err: ", error);
+          this.isLoading = false;
+          this.notify(error, "Error");
         }
       );
   }
@@ -106,10 +111,14 @@ export class CreateComponent implements OnInit {
       .updateIssue(id, title, responsible, description, severity, status)
       .subscribe(
         (res: any) => {
-          console.log("res: ", res);
+          // console.log("res: ", res);
+          this.notify(res, "Update issue");
+          this.router.navigate(["/list"]);
         },
         (error: any) => {
-          console.log("err: ", error);
+          // console.log("err: ", error);
+          this.notify(error, "Error");
+          this.isLoading = false;
         }
       );
   }
@@ -119,16 +128,18 @@ export class CreateComponent implements OnInit {
     this.issuesService.getSingleIssue(this.issueID).subscribe(
       (res: any) => {
         if (res) {
-          console.log("res: ", res);
+          // console.log("res: ", res);
           const { _id, status } = res;
           this.formUpdateProps = { _id, status };
           // Load form with the data from the issue
           // this.editState = true;
           this.populateForm(res);
+          this.isLoading = false;
         }
       },
       (error: any) => {
-        console.log("err: ", error);
+        // console.log("err: ", error);
+        this.isLoading = false;
       }
     );
   }
@@ -174,6 +185,14 @@ export class CreateComponent implements OnInit {
       } else {
         this.issueID = params["id"];
       }
+    });
+  }
+
+  private notify(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+      verticalPosition: "top",
+      horizontalPosition: "end"
     });
   }
 }

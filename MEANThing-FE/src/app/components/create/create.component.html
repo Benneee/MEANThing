@@ -1,4 +1,9 @@
-<div>
+<div *ngIf="isLoading" class="center">
+  <mat-spinner mode="indeterminate" color="accent"></mat-spinner>
+</div>
+
+
+<div *ngIf="!isLoading">
   <br />
 
   <mat-card>
