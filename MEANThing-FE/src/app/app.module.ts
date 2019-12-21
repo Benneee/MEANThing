@@ -17,6 +17,7 @@ import {
   MatTableModule,
   MatDividerModule,
   MatSnackBarModule,
+  MatProgressSpinnerModule,
   MatFormFieldModule
 } from "@angular/material";
 import { HttpClientModule } from "@angular/common/http";
@@ -40,7 +41,8 @@ import { ReactiveFormsModule } from "@angular/forms";
     MatCardModule,
     MatTableModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   bootstrap: [AppComponent]
 })
