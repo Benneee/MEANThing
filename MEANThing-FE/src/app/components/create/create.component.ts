@@ -88,16 +88,18 @@ export class CreateComponent implements OnInit {
         if (res) {
           console.log("res: ", res);
           // Load form with the data from the issue
-          this.formBtn = {
-            type: "update",
-            text: "Update"
-          };
-          this.createIssueForm.patchValue({
-            title: res.title,
-            responsible: res.responsible,
-            description: res.description,
-            severity: res.severity
-          });
+          if (this.editState === true) {
+            this.formBtn = {
+              type: "update",
+              text: "Update"
+            };
+            this.createIssueForm.patchValue({
+              title: res.title,
+              responsible: res.responsible,
+              description: res.description,
+              severity: res.severity
+            });
+          }
         }
       },
       (error: any) => {
@@ -109,8 +111,7 @@ export class CreateComponent implements OnInit {
   getIssueID() {
     this.route.params.subscribe((params: Params) => {
       if (!params["id"]) {
-        this.router.navigate(["/list"]);
-        return;
+        this.editState = false;
       } else {
         this.editState = true;
         this.issueID = params["id"];
