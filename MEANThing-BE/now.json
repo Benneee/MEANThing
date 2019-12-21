@@ -25,17 +25,17 @@
     {
       "src": "/issues/add",
       "dest": "/server.js",
-      "methods": ["POST"]
+      "methods": ["POST", "OPTIONS"]
     },
     {
       "src": "/issues/update/(?<id>[^/]+)",
       "dest": "/server.js",
-      "methods": ["PUT"]
+      "methods": ["PUT", "OPTIONS"]
     },
     {
       "src": "/issues/delete/(?<id>[^/]+)",
       "dest": "/server.js",
-      "methods": ["DELETE"]
+      "methods": ["DELETE", "OPTIONS"]
     }
   ]
 }

@@ -14,6 +14,9 @@ const port = process.env.PORT || 4000;
 // Use CORS middleware to avoid connection issues since our Database will be hosted on another server
 
 app.use(cors());
+
+app.options("*", cors());
+
 // Call the json method of the body-parser middleware to convert data to JSON
 app.use(bodyParser.json());
 
